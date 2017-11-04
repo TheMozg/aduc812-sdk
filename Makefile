@@ -30,9 +30,9 @@ BLD_DIR    := $(BLD_DIR).linux
 CC         := sdcc
 SED        := sed
 M3P        := $(abspath ./toolchain/linux/bin/m3p)
+RM         := rm -rf
 PORT       := usb0
 SILENT     := >/dev/null
-RM         := rm -rf
 endif
 
 

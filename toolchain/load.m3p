@@ -1,12 +1,12 @@
     terminateonerror 
-    -- Открытие com-порта (com1) на скорости 9600 бит/с
-    9600 openchannel com1
+    -- Opening com-port (@@PORT@@) with speed @@BAUD@@ bits/s
+    @@BAUD@@ openchannel @@PORT@@
 
 : wait
 
     cr cr
  
-    ." Ожидание перезапуска... " 
+    ." Please reset the device... " 
 
     begin rsio dup emit 109 == until
 
@@ -17,7 +17,7 @@
 
     T_RAM
 
-    0x2100       write 	demoset.bin
+    0x2100       write 	@@BINARY@@
     0x2100       jmp
 
     0 term

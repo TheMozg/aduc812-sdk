@@ -21,16 +21,16 @@ ifeq ($(IS_WINDOWS),YES)
 BLD_DIR    := $(BLD_DIR).windows
 CC         := "C:\Program Files\SDCC\bin\sdcc.exe"
 SED        := $(abspath .\toolchain\windows\bin\sed.exe)
-M3P		   := $(abspath .\toolchain\windows\bin\M3P.exe)
+M3P        := $(abspath .\toolchain\windows\bin\M3P.exe)
 RM         := rmdir /S /Q
-PORT	   := com1
+PORT       := com1
 SILENT     := > nul
 else
 BLD_DIR    := $(BLD_DIR).linux
 CC         := sdcc
 SED        := sed
-M3P		   := gm3p
-PORT	   := usb0
+M3P        := $(abspath ./toolchain/linux/bin/m3p)
+PORT       := usb0
 SILENT     := >/dev/null
 RM         := rm -rf
 endif

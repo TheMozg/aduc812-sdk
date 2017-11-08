@@ -23,7 +23,7 @@ CC         := "C:\Program Files\SDCC\bin\sdcc.exe"
 SED        := $(abspath .\toolchain\windows\bin\sed.exe)
 M3P        := $(abspath .\toolchain\windows\bin\M3P.exe)
 RM         := rmdir /S /Q
-PORT       := com1
+PORT       := com9
 SILENT     := > nul
 else
 BLD_DIR    := $(BLD_DIR).linux

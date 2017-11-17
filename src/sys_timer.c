@@ -23,26 +23,36 @@ void delay_ms( unsigned long ms ) {
 } 
 
 void init_timers( ) {
+
+  // Set T0 and T1 to timer mode
   TMOD = 0x11;
   
+  // Set INT1 edge-sensitive
   IT1 = 1;
   
+  // Timers priorities
   PT1 = 0;
   PT0 = 1;
   
+  // Start values for T0
   TH0 = A_H;
   TL0 = A_L;
   
+  // Start values for T1
   TH1 = MS_H;
   TL1 = MS_L;
  
+  // Start timers T0 and T1
   TR1 = 1;
   TR0 = 1;
 
+  // Enable timers T0 and T1
   ET1 = 1;
   ET0 = 1;
   
+  // Enable external interrupt 1
   EX1 = 1;
   
+  // Allow interrupts
   EA = 1;
 }

@@ -14,4 +14,3 @@
 #define F_L 0x69
 #define G_H 0xFA
 #define G_L 0xFF
-

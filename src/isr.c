@@ -6,19 +6,24 @@
 #include "sound.h"
 #include "led.h"
 
+// INT1 counter
 unsigned char k;
+
+// Toggler for ENA in T0 ISR
 char t;
+
 char g_note_h;
 char g_note_l;
 
 unsigned long systime = 0;
 
-// old leds - ignore for now
-void INT1_ISR( void ) __interrupt (1) {
+// Handler for INT1 interrupt, controls LED output
+void INT1_ISR( void ) __interrupt {
 	k++;
 	leds( k );
 }
 
+// Handler for timer1 interrupts, interrupts every millisecond
 void T1_ISR ( void ) __interrupt {
   systime++;
     
@@ -26,6 +31,7 @@ void T1_ISR ( void ) __interrupt {
   TL1 = MS_L;
 }
 
+// Handler for timer0 interrupts, generates sound of set frequency
 void T0_ISR( void ) __interrupt {
 
   if( t ) {

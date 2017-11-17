@@ -3,17 +3,17 @@
 #include "led.h"
 #include "notes.h"
 
-#define MS_H 0xD4
-#define MS_L 0xC3
+#define MS_H 0xFC
+#define MS_L 0x66
 #define DELAY_MS 1000
 
 static unsigned long __systime = 0;
 
 unsigned long GetMsCounter( void ) { 
   unsigned long res; 
-  ET2 = 0; 
+  ET1 = 0;
   res = __systime; 
-  ET2 = 1; 
+  ET1 = 1;
   return res; 
 } 
 
@@ -29,12 +29,12 @@ void DelayMs( unsigned long ms ) {
   }   
 } 
 
-void T2_ISR ( void ) __interrupt (5) {
+void T1_ISR ( void ) __interrupt {
     __systime++;
     
     // Cause timer passes ms every 0x043D, so 0xFFFF - 0x043D = 0xFBC3
-    TH2 = MS_H;
-    TL2 = MS_L;
+    TH1 = MS_H;
+    TL1 = MS_L;
 }
 
 char t = 0; //Флаг для переключения регистра ENA
@@ -50,11 +50,13 @@ void SetNote( char note_h, char note_l ) {
   g_note_l = note_l;
 }
 
+/* old leds - ignore for now
 void T1_ISR( void ) __interrupt (1) {
 	k++;
 }
+*/
 
-void T0_ISR( void ) __interrupt (2) {
+void T0_ISR( void ) __interrupt {
 
 		if( t ) {
       write_max(ENA, 0b0011100);
@@ -88,7 +90,6 @@ void main( void ) {
 	// Инициализация работы таймера-0
 
 	TMOD = 0x11;
-	TCON = 0x14;
   
 	//TMOD = 0x40 + 0x10 + 0x01 + 0x08; // Timer 1 counter mode + Timer 1 16 bit mode + Timer 0 16 bit mode + Timer 0 gate mode 
 	//TCON = 0x40 + 0x10 + 0x01; // Timer 1 run + Timer 0 run + External interrupt INT0 edge-sensetive
@@ -97,20 +98,21 @@ void main( void ) {
 	// Might work even without these if there are some goodies left in RAM
 	SetVector( 0x200B, (void *)T0_ISR );
 	//SetVector( 0x2013, (void *)T1_ISR );
-  SetVector( 0x202B, (void *)T2_ISR );
+  SetVector( 0x201B, (void *)T1_ISR );
   
-  PT2 = 0;
+  PT1 = 0;
   PT0 = 1;
   
   TH0 = A_H;
 	TL0 = A_L;
   
-  TH2 = MS_H;     // Timer 2 high byte
-  TL2 = MS_L;     // Timer 2 low byte
+  TH1 = MS_H;
+  TL1 = MS_L;
  
-  TR2 = 1;        // Timer 2 start
-   
-  ET2 = 1;        // Timer 2 enable interrupts
+  TR1 = 1;
+  TR0 = 1;
+
+  ET1 = 1;
 	ET0 = 1;
   
 	EX1 = 1;

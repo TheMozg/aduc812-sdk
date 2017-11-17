@@ -1,8 +1,8 @@
-#include "notes.h"
 #include "sys_timer.h"
 #include "isr.h"
 #include "sound.h"
-
+#include "notes.h"
+#include "MasterOfPuppets.h"
 #define DELAY_MS 500
 
 void main( void ) {
@@ -10,19 +10,30 @@ void main( void ) {
   set_vectors( );
   
   while( 1 ) {
-    set_note( C_H, C_L );
+    //Master_Of_Puppets( );
+    set_note( C_NOTE_4 );
     delay_ms( DELAY_MS );
-    set_note( D_H, D_L );
+
+    set_note( D_NOTE_4 );
     delay_ms( DELAY_MS );
-    set_note( E_H, E_L );
+
+    set_note( E_NOTE_4 );
     delay_ms( DELAY_MS );
-    set_note( F_H, F_L );
+
+    set_note( F_NOTE_4  );
     delay_ms( DELAY_MS );
-    set_note( G_H, G_L );
+
+    set_note( G_NOTE_4 );
     delay_ms( DELAY_MS );
-    set_note( A_H, A_L );
+
+    set_note( A_NOTE_4 );
     delay_ms( DELAY_MS );
-    set_note( B_H, B_L );
+
+    set_note( B_NOTE_4 );
     delay_ms( DELAY_MS );
+
+    set_note( C_NOTE_5 );
+    delay_ms( DELAY_MS );
+
   }
 }

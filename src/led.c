@@ -26,8 +26,11 @@ Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
 e-mail: kluchev@d1.ifmo.ru
 
 ****************************************************************************/
+
 #include "aduc812.h"
 #include "max.h"
+#include "led.h"
+#include <string.h>
 
 static unsigned char old_led = 0;   // "Видеопамять" линейки светодиодов
 
@@ -90,8 +93,6 @@ void leds( unsigned char on )
 
     old_led = on;
 }
-
-
 
 
 

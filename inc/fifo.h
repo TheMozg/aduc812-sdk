@@ -10,6 +10,8 @@ typedef struct fifo {
   fifo_node_t* back;
 } fifo_t;
 
+void fifo_init( fifo_t* fifo );
+
 void enqueue( fifo_t* fifo, unsigned char val );
 
 unsigned char dequeue( fifo_t* fifo );

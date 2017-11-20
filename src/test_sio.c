@@ -6,6 +6,9 @@
 #include "test_sio.h"
 #include "fifo.h"
 
+enum mode g_mode = ASYNC;
+
+// Task 1
 void desc_digs( unsigned char c ) {
 
   if( c >= ascii_zero && c <= ascii_nine ) {
@@ -13,41 +16,30 @@ void desc_digs( unsigned char c ) {
       wsio( c );
     }
   }
-
   type( EOL );
+
 }
 
 
 void main( void ) {
 
   unsigned char c;
-  unsigned char r = 0;
-  unsigned char i;
+  /*unsigned char i;
   unsigned char d;
-  fifo_t* fifo = { NULL, NULL };
-  int f = 1;
+  fifo_t* fifo = 0;
+  int s;
+  fifo_init( fifo );*/
+  
   init_sio( BAUD );
-
+  /*EA = 0;
+  ES = 0;*/
+  EA = 1;
   while( 1 ) {
-   // leds( get_dips( ) );
-    if( rsiostat() ) {
-      c = rsio();
-      
-      enqueue( fifo, 'd' );
-      enqueue( fifo, 'i' );
-      enqueue( fifo, 'c' );
-      enqueue( fifo, 'k' );
-      enqueue( fifo, 's' );
-
-      for( i = 0; i < 5; i++ ) {
-        d = dequeue( fifo );
-        wsio( d );
-      }
+    
+    if( rsiostat( ) ) {
+     // c = rsio();
+    //  wsio( c );
       type( EOL );
-      
-     // fifo_deinit( fifo );
-
-    //  desc_digs( c );
     }
 
   }

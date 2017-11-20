@@ -2,16 +2,10 @@
 #include <stdlib.h>
 #include "fifo.h"
 
-/*
-fifo_node_t* fifo_get_prev_node( fifo_t* fifo, fifo_node_t* node ) {
-  fifo_node_t* tmp = fifo->front;
-  
-  while( tmp->next != node ) {
-    tmp = tmp->next;
-  }
-
-  return tmp;
-}*/
+void fifo_init( fifo_t* fifo ) {
+  fifo->front = NULL;
+  fifo->back = NULL;
+}
 
 void enqueue( fifo_t* fifo, unsigned char val ) {
   fifo_node_t* node = malloc( sizeof(fifo_node_t) );
@@ -26,7 +20,6 @@ void enqueue( fifo_t* fifo, unsigned char val ) {
   }
 
   fifo->back = node;
-
 }
 
 unsigned char dequeue( fifo_t* fifo ) {
@@ -44,6 +37,13 @@ unsigned char dequeue( fifo_t* fifo ) {
 }
 
 int fifo_get_size( fifo_t* fifo ) {
-  // Not implemented
-  return 0;
+  int i = 0;
+  fifo_node_t* tmp = fifo->front;
+  if( tmp == NULL ) return 0;
+
+  do {
+    i++;
+    tmp = tmp->next;
+  } while( tmp->next != NULL );
+  return i;
 }

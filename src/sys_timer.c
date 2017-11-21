@@ -56,3 +56,4 @@ void init_timers( ) {
   // Allow interrupts
   EA = 1;
 }
+

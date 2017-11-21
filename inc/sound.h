@@ -10,3 +10,4 @@ extern char g_note_l;
 
 // Set sound frequency
 void set_note( int hz );
+

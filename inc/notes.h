@@ -1,13 +1,5 @@
 #pragma once
 
-// Octaves from subsubcontra to six-lined
-#define MAX_OCTAVE 9
-#define MIN_OCTAVE -1
-
-// For init set
-#define A_H 0xFB
-#define A_L 0x8B
-
 #define C_NOTE_0        16.4
 #define C_SHARP_NOTE_0  17.3
 #define D_NOTE_0        18.4

@@ -1,5 +1,9 @@
 #pragma once
 
+// For init set
+#define A_H 0xFB
+#define A_L 0x8B
+
 // Define main clock speed
 #define MCLKIN 11059200
 

@@ -39,7 +39,7 @@ void main( void ) {
 
       while( fifo_get_size( fifo ) > 0 ) {
         d = dequeue( fifo );
-        wsio( c );
+        wsio( d );
       
       }
       type( EOL );

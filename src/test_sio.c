@@ -35,22 +35,18 @@ void main( void ) {
     if( rsiostat( ) ) {
       c = rsio( );
 
-      //desc_digs( c, fifo );
+      desc_digs( c, fifo );
 
-      //while( fifo_get_size( fifo ) > 0 ) {
-      //  d = dequeue( fifo );
+      while( fifo_get_size( fifo ) > 0 ) {
+        d = dequeue( fifo );
         wsio( c );
-      //}
       
+      }
+      type( EOL );
       
      // fifo_deinit( fifo );
 
     //  desc_digs( c );
-    } else { f = 0; }
-    if( f == 0 ) {
-      type( EOL );
-      f = 1;
     }
-
   }
 }  

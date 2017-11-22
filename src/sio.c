@@ -39,33 +39,33 @@ void init_sio( unsigned char speed ) {
   TMOD     |=  0x20; //Таймер 1 будет работать в режиме autoreload
   TCON     |=  0x40; //Запуск таймера 1
   SCON      =  0x50; //Настройки последовательного канала
-  ES        =  1;    //Запрещение прерываний от приемопередатчика
-  EA        =  1;
+  ES        =  0;    //Запрещение прерываний от приемопередатчика
+  //EA        =  1;
 }
 
 unsigned char rsiostat( void ) {
-    /*return RI;*/
-  return ( fifo_get_size( r_fifo ) > 0 ) ? 1 : 0;
+  return RI;
+ // return ( fifo_get_size( r_fifo ) > 0 ) ? 1 : 0;
 }
 
 void wsio( unsigned char c ) {
-  ES = 0;
+  /*ES = 0;
     //if( fifo_get_size( t_fifo ) == 0 ) f = 1;
   enqueue( t_fifo, c );
     
-  /*if( f )*/if( fifo_get_size( t_fifo ) > 0 ) TI = 1;
+  if( fifo_get_size( t_fifo ) > 0 ) TI = 1;
 
-  ES = 1;
-    /*SBUF = c;
-    TI   = 0;
-    while( !TI );*/
+  ES = 1;*/
+  SBUF = c;
+  TI   = 0;
+  while( !TI );
 }
 
 unsigned char rsio( void ) {
-    /*while( !RI );
+    while( !RI );
     RI = 0;
-    return SBUF;*/
-  unsigned char c;
+    return SBUF;
+  /*unsigned char c;
   ES = 0;
 
   if( fifo_get_size( r_fifo ) > 0 ) c = dequeue( r_fifo );
@@ -73,17 +73,17 @@ unsigned char rsio( void ) {
     
   ES = 1;
 
-  return c;
+  return c;*/
 }
 
 void type( char * str ) {
-   /* while( *str ) wsio( *str++ );*/
-  ES = 0;
+  while( *str ) wsio( *str++ );
+  /*ES = 0;
   
   while( *str ) enqueue( t_fifo, *str++ );
 
   if( fifo_get_size( t_fifo ) > 0 ) TI = 1;
 
-  ES = 1;
+  ES = 1;*/
 }
 

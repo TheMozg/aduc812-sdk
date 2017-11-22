@@ -8,6 +8,8 @@ void fifo_init( fifo_t* fifo ) {
 }
 
 void enqueue( fifo_t* fifo, unsigned char val ) {
+  //if( val == NULL ) return;
+
   fifo_node_t* node = malloc( sizeof(fifo_node_t) );
 
   node->val = val;

@@ -8,38 +8,48 @@
 
 enum mode g_mode = ASYNC;
 
-// Task 1
-void desc_digs( unsigned char c ) {
+void desc_digs( unsigned char c, fifo_t* fifo ) {
 
-  if( c >= ascii_zero && c <= ascii_nine ) {
-    for( c; c >= ascii_zero; c-- ) {
-      wsio( c );
+  if( c >= '0' && c <= '9' ) {
+    for( c; c >= '0'; c-- ) {
+      //wsio( c );
+      enqueue( fifo, c );
     }
   }
-  type( EOL );
-
+  //type( EOL );
 }
-
 
 void main( void ) {
 
   unsigned char c;
-  /*unsigned char i;
+  unsigned char r = 0;
+  unsigned char i;
   unsigned char d;
-  fifo_t* fifo = 0;
-  int s;
-  fifo_init( fifo );*/
-  
+  fifo_t* fifo = { NULL, NULL };
+  int f = 1;
   init_sio( BAUD );
-  /*EA = 0;
-  ES = 0;*/
-  EA = 1;
+
   while( 1 ) {
-    
+    leds( get_dips( ) );
+
     if( rsiostat( ) ) {
-     // c = rsio();
-    //  wsio( c );
+      c = rsio( );
+
+      //desc_digs( c, fifo );
+
+      //while( fifo_get_size( fifo ) > 0 ) {
+      //  d = dequeue( fifo );
+        wsio( c );
+      //}
+      
+      
+     // fifo_deinit( fifo );
+
+    //  desc_digs( c );
+    } else { f = 0; }
+    if( f == 0 ) {
       type( EOL );
+      f = 1;
     }
 
   }

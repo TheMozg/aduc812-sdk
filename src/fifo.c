@@ -43,9 +43,11 @@ int fifo_get_size( fifo_t* fifo ) {
   fifo_node_t* tmp = fifo->front;
   if( tmp == NULL ) return 0;
 
-  do {
+  i++;
+  while( tmp->next != NULL ) {
     i++;
     tmp = tmp->next;
-  } while( tmp->next != NULL );
+  }
+
   return i;
 }

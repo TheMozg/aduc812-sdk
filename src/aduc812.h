@@ -1,5 +1,4 @@
-#ifndef __ADUC812__H
-#define __ADUC812__H
+#pragma once
 
 /*  BYTE Register  */
 __sfr __at ( 0x80 )  P0       ;
@@ -194,7 +193,3 @@ __sbit __at ( 0xF8 ) SPR0     ;
 #define IE1_VECTOR      2       /* 0x13 external interrupt 1 */
 #define TF1_VECTOR      3       /* 0x1b timer 1 */
 #define SI0_VECTOR      4       /* 0x23 serial port 0 */
-
-
-#endif //__ADUC812_H
-

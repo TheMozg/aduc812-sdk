@@ -53,8 +53,12 @@ void uart_write_async( unsigned char c ) {
     }
 }
 
+void uart_write_str_async( unsigned char * str ) {
+    while( *str ) uart_write_async( *str++ );
+}
+
 unsigned char uart_read_async() {
-    unsigned char res = '!';
+    unsigned char res = 0;
     ES = 0;
     if( fifo_get_size( &read_queue ) != 0 ) {
         res = fifo_dequeue( &read_queue );

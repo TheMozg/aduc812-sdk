@@ -1,4 +1,3 @@
-#include "aduc812.h"
 #include "max.h"
 #include "dip.h"
 

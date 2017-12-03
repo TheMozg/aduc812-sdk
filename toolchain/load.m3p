@@ -20,6 +20,4 @@
     0x2100       write 	@@BINARY@@
     0x2100       jmp
 
-    0 term
-
 bye

@@ -1,9 +1,9 @@
 # Basic user settings
 
-TARGET     := timers
+TARGET     := uart
 
 SRC_DIR    := src
-INC_DIR    := inc
+INC_DIR    := src
 BLD_DIR    := build
 
 CFLAGS     := -I$(INC_DIR) --stack-auto --disable-warning 154

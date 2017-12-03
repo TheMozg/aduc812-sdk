@@ -3,51 +3,56 @@
 #include "fifo.h"
 
 void fifo_init( fifo_t* fifo ) {
-  fifo->front = NULL;
-  fifo->back = NULL;
+    fifo->front = NULL;
+    fifo->back = NULL;
 }
 
-void enqueue( fifo_t* fifo, unsigned char val ) {
-  //if( val == NULL ) return;
+void fifo_enqueue( fifo_t* fifo, unsigned char val ) {
+    fifo_node_t* node = malloc( sizeof(fifo_node_t) );
 
-  fifo_node_t* node = malloc( sizeof(fifo_node_t) );
+    node->val = val;
+    node->next = NULL;  
 
-  node->val = val;
-  node->next = NULL;  
+    if( fifo->front == NULL ) {
+        fifo->front = node;
+    } else {
+        fifo->back->next = node;
+    }
 
-  if( fifo->front == NULL ) {
-    fifo->front = node;
-  } else {
-    fifo->back->next = node;
-  }
-
-  fifo->back = node;
+    fifo->back = node;
 }
 
-unsigned char dequeue( fifo_t* fifo ) {
-  unsigned char ret;
+unsigned char fifo_dequeue( fifo_t* fifo ) {
+    unsigned char ret;
 
-  fifo_node_t* front = fifo->front;
+    fifo_node_t* front = fifo->front;
 
-  if( front == NULL ) return -1;
-                        
-  ret = front->val;
-  fifo->front = front->next;
+    if( front == NULL ) return '!';
+                          
+    ret = front->val;
+    fifo->front = front->next;
 
-  free( front );
-  return ret;
+    free( front );
+    return ret;
 }
 
-int fifo_get_size( fifo_t* fifo ) {
-  int i = 0;
-  fifo_node_t* tmp = fifo->front;
-  if( tmp == NULL ) return 0;
+unsigned char fifo_peek( fifo_t* fifo ) {
+    if( fifo->front != NULL ) {
+        return fifo->front->val;
+    }                    
+    return '!';
+}
 
-  i++;
-  while( tmp->next != NULL ) {
+unsigned int fifo_get_size( fifo_t* fifo ) {
+    unsigned int i = 0;
+    fifo_node_t* tmp = fifo->front;
+    if( tmp == NULL ) return 0;
+
     i++;
-    tmp = tmp->next;
-  }
+    while( tmp->next != NULL ) {
+        i++;
+        tmp = tmp->next;
+    }
 
-  return i;
+    return i;
 }

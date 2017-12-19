@@ -1,6 +1,14 @@
 #include "util.h"
-#include <string.h>
- 
+
+unsigned int strlen(char * s) {
+    unsigned int count = 0;
+    while (*s) {
+        count++;
+        s++;
+    }
+    return count;
+}
+
 void reverse(char s[])
 {
     int i, j;

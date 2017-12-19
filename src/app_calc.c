@@ -1,7 +1,7 @@
 #include "app_calc.h"
 #include "uart_async.h"
+#include "keypad.h"
 #include "util.h"
-#include "led.h"
 
 typedef enum {
     init,
@@ -11,20 +11,20 @@ typedef enum {
     print_error
 } calc_state_t;
 
-calc_state_t calc_state;
-unsigned char length;
-int divident;
-int divisor;
+static calc_state_t calc_state;
+static unsigned char length;
+static int divident;
+static int divisor;
 
-void run_calc_app(int init_app) {
-    unsigned char c;
-    if (init_app) {
-        calc_state = init;
-        uart_init_async();
-    }
-    c = uart_read_async();
-    if (c != 0)
-        uart_write_async(c);
+void init_calc_app() {
+    uart_init_async();
+    keypad_init();
+    calc_state = init;
+}
+
+void run_calc_app() {
+    char c = keypad_read();
+    if ( c ) uart_write_async(c);
     switch (calc_state) {
         case init:
             calc_state = read_dividend;
@@ -34,7 +34,6 @@ void run_calc_app(int init_app) {
             break;
         case read_dividend:
             if ( c >= '0' && c <= '9' ) {
-                leds (0x00);
                 if (length == 2) {
                     calc_state = print_error;
                 }
@@ -54,7 +53,7 @@ void run_calc_app(int init_app) {
                     calc_state = read_divisor;
                 }
                 break;
-            } 
+            }
             if ( c == 0 ) {
                 break;
             }
@@ -78,7 +77,7 @@ void run_calc_app(int init_app) {
                 else
                     calc_state = print_result;
                 break;
-            } 
+            }
             if ( c == 0 ) {
                 break;
             }
@@ -96,7 +95,6 @@ void run_calc_app(int init_app) {
             calc_state = init;
             break;
         case print_error:
-            leds( 0xFF );
             uart_write_str_async("\r\nInput error!\r\n");
             calc_state = init;
             break;

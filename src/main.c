@@ -8,7 +8,7 @@ typedef enum {
     calc
 } app_t;
 
-app_t last_app;
+static app_t last_app;
 
 app_t get_driver() {
     if (read_dip() == 0xFF){
@@ -21,12 +21,21 @@ void main() {
     app_t last_app = none;
     while( 1 ) {
         app_t app = get_driver();
+
         if (app == echo) {
-            run_echo_app(app != last_app);
+            if (app != last_app) {
+                init_echo_app();
+            }
+            run_echo_app();
         }
+
         if (app == calc) {
-            run_calc_app(app != last_app);
+            if (app != last_app) {
+                init_calc_app();
+            }
+            run_calc_app();
         }
+
         last_app = app;
     }
 }

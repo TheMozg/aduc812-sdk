@@ -1,3 +1,4 @@
 #pragma once
 
-void run_calc_app(int init_app);
+void init_calc_app();
+void run_calc_app();

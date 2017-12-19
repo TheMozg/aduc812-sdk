@@ -1,21 +1,13 @@
 #pragma once
 
-typedef struct fifo_node_t {
-    unsigned char val;
-    struct fifo_node_t* next;
-} fifo_node_t;
+#define FIFO_SIZE 20
 
-typedef struct {
-    fifo_node_t* front;
-    fifo_node_t* back;
-} fifo_t;
+void fifo_init( char* fifo );
 
-void fifo_init( fifo_t* fifo );
+void fifo_enqueue( char* fifo, char c );
 
-void fifo_enqueue( fifo_t* fifo, unsigned char val );
+char fifo_dequeue( char* fifo );
 
-unsigned char fifo_dequeue( fifo_t* fifo );
+char fifo_peek( char* fifo );
 
-unsigned char fifo_peek( fifo_t* fifo );
-
-unsigned int fifo_get_size( fifo_t* fifo );
+unsigned int fifo_get_size( char* fifo );

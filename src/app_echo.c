@@ -1,17 +1,16 @@
 #include "app_echo.h"
-#include "uart_blocking.h"
+#include "uart_async.h"
+#include "keypad.h"
 
-void run_echo_app(int init_app) {
-    unsigned char c;
-    if (init_app) {
-        uart_init_blocking();
-    }
-    c = uart_read_blocking();
-    if( c >= '0' && c <= '9' ) {
-        for( c; c >= '0'; c-- ) {
-            uart_write_blocking( c );
-        }
-        uart_write_blocking( '\r' );
-        uart_write_blocking( '\n' );
+void init_echo_app() {
+    uart_init_async();
+    keypad_init();
+}
+
+void run_echo_app() {
+    char c = keypad_read();
+    if( c ) {
+       uart_write_async( c );
+       uart_write_str_async( "\r\n" );
     }
 }

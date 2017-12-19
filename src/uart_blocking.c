@@ -11,15 +11,14 @@ void uart_init_blocking() {
     TR1  = 1;    // enable timer 1
 }
 
-void uart_write_blocking( unsigned char c ) {
+void uart_write_blocking( char c ) {
     TI = 0;
     SBUF = c;
     while( !TI );
 }
 
-unsigned char uart_read_blocking() {
+char uart_read_blocking() {
     RI = 0;
     while( !RI );
     return SBUF;
 }
-

@@ -1,3 +1,4 @@
 #pragma once
 
-void run_echo_app(int init_app);
+void init_echo_app();
+void run_echo_app();

@@ -7,7 +7,7 @@ INC_DIR    := src
 BLD_DIR    := build
 
 CFLAGS     := -I$(INC_DIR) --stack-auto --disable-warning 154
-LFLAGS     := --code-loc 0x2100 --xram-loc 0x6000 --stack-auto --stack-loc 0x80 
+LFLAGS     := --code-loc 0x2100 --xram-loc 0x6000 --stack-auto --stack-loc 0x80
 
 M3P_LOADER := toolchain/load.m3p
 BAUD	   := 9600
